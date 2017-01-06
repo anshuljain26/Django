@@ -1,0 +1,4 @@
+install django
+install crispy forms
+install pagedown
+

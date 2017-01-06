@@ -1,0 +1,41 @@
+
+{% extends 'onlineprogram/base.html' %}
+
+{% block title %}
+
+{{title}}
+
+{% endblock title %}
+
+{% block content %}
+
+<div class="row" style="text-align:center;">
+    <div class="col-sm-12">
+    <h1>{{title}} Tutorial</h1>
+    <hr>
+       {% for object in instances %}
+	        <div class="col-sm-4" style="border-color:#E47541">
+	        	<h2>{{object.title}}</h2>
+		        {% if object.Video %}
+		        <div class="thumbnail">
+		        	 <video width="420" height="250" controls>
+					  <source src="{{object.Video.url}}" type="video/mp4">
+					</video> 
+		        </div>
+		        {% endif %}
+			        <div class="caption">
+				        <p class="lead">{{object.Content}}</p>
+				        <p> Publish Date: <small>{{object.Publish}}</small></p>
+				    </div>    
+	        </div>
+	        {% endfor %}
+    </div>
+
+</div>
+
+
+
+{% endblock content %}
+
+
+

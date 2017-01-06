@@ -1,0 +1,30 @@
+{% extends 'onlineprogram/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="row">
+	<div class="col-md-8 col-md-offset-4">
+	    <h2>{{title}}</h2>
+		<form method="POST" action ="" enctype="multipart/form-data">
+		{% csrf_token %}
+
+		{{form|crispy}}
+
+		<input type="submit" value="Upload Course" class="btn btn-primary" style="margin-top:20px;">
+
+
+		</form>
+	</div>
+
+</div>
+
+
+{% endblock %}

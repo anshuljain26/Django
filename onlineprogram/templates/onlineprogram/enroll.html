@@ -1,0 +1,71 @@
+{% extends 'onlineprogram/base.html'%}
+
+{% block title %}
+
+{{title}}
+
+{% endblock title %}
+
+
+{% block content %}
+
+
+{% if messages %}
+<div class="row">
+	<div class="col-md-8 col-md-offset-4" style="background-color:#00FF7F;>
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+	{% endif %}
+	</div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+		<div class="col-md-6 col-md-offset-3">
+		    <h2>{{instances.title}}</h2>
+		     {% if instances.image %}
+			        <div class="thumbnail" style="width:400px; height:300px;">
+			        <img src="{{ instances.image.url }}" class="img-responsive" style="width:450px; height: 300px;">
+			        </div>
+			 {% endif %}
+			 <div class="caption">
+		    <p class="lead">About Course: <br>{{instances.Description}}</p>
+		    <p class="lead">Course Period:<small>{{instances.Course_period}}</small></p>
+		       {% if instances.cost == '0' %}
+                        <a class="btn btn-default">free project</a>
+                        {% else %}
+                        <a class="btn btn-default">{{instances.cost}}</a>
+                        {% endif %}
+              </div>          
+		 </div>   
+		<div class="col-md-2" style="margin-top:40px;"> 
+		    <h2>Enroll Project</h2>
+		    {% if exists == 'exists' %}
+		    <a href="{% url 'online:project_list' title=instances.title %}" class="btn btn-success">Already Enrolled</a><br><br>
+		    <p><small>Click on the above button to get into the tutorial<small></p>
+
+		    {% elif request.user.is_authenticated %}
+
+			<form method="POST" action="">
+				{% csrf_token %}
+				{{form.as_p}}
+				<input type="submit" Value="Enroll" class="btn btn-success">&nbsp;
+				<a href="{% url 'online:projects' %}" class="btn btn-default">Go Back</a>
+			</form>
+			{% else %}
+			<a href="{% url 'online:login' %}" class="btn btn-info" style="width:200px;">Enroll</a>
+			{% endif %}
+			
+	   </div>
+
+	</div>
+</div>
+
+{% endblock content %}
+
+
+

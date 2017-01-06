@@ -1,0 +1,74 @@
+{% extends 'onlineprogram/base.html' %}
+
+{% block title %}
+
+{{title}}
+
+{% endblock title %}
+
+
+
+{% block content %}
+
+
+
+{{object.category}}<br>
+<h1 style="text-align: center; margin-bottom:25px;">{{title}}</h1>
+<div class="col-sm-8 col-sm-offset-4">
+
+    <form action="" method="get">
+        <div class="row">
+        <div class="col-sm-8">
+        <div class="input-group">
+        <input class="form-control" type="text" name="q" placeholder="Search" value="{{request.GET.q}}"/>
+            <span class="input-group-btn "><input  class="btn btn-primary" type="submit" value="Search"></span>
+            </div>
+            </div>
+            </div>
+    </form>
+    <div id="cats">
+    </div>
+ </div>   
+
+
+
+<div class="row" style="text-align:center; background-color:white; ">
+    <div class="col-sm-12">
+       {% for object in instances %}
+	        <div class="col-sm-3">
+	        	<h2>{{object.title}}</h2>
+		        {% if object.image %}
+		        <div class="thumbnail">
+                   {% if request.user.is_authenticated %}
+		        	<a href="{% url 'online:project_list' title=object.title %}"><img src="{{ object.image.url }}" class="img-responsive" style="width:350px; height:200px;"></a>
+                   {% else %}
+                   <a href="{% url 'online:login'%}"><img src="{{ object.image.url }}" class="img-responsive" style="width:350px; height:200px;"></a>
+                   {% endif %}
+
+                   
+		        </div>
+		        {% endif %}
+			        <div class="caption">
+				        <p> Course period: <small>{{object.Course_period}}</small></p>
+                        <p> Start Date: <small>{{object.Publish}}</small></p>
+                        <a href="{% url 'online:enroll_project' title=object.title%}" class="btn btn-info">View</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% if object.cost == '0' %}
+                        <a class="btn btn-default">Free</a>
+                        {% else %}
+                        <a class="btn btn-default">{{object.cost}}</a>
+                        {% endif %}
+                        
+				    </div>    
+	        </div>
+	        {% endfor %}
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+
+
+

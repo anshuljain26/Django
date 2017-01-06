@@ -1,0 +1,45 @@
+{% extends 'onlineprogram/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+
+
+
+
+
+<body>
+{% block content %}
+
+{% if messages %}
+<div class="row">
+	<div class="col-md-8 col-md-offset-4" style="background-color:#00FF7F;>
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+	{% endif %}
+	</div>
+</div>
+
+<div class="row">
+	<div class='col-md-8 col-sm-offset-4'>
+	    <h1>{{title}}</h1>
+	<form method='POST' action='' enctype='multipart/form-data'>
+	    {% csrf_token %}
+	{{ form|crispy }}
+	<input type='submit' class='btn btn-info btn-block' value='{{title}}' style="margin-top:20px;width:450px;" />
+	</form><hr>
+	<h4 style="margin-left: 140px;">Or Connect with</h4>
+	<a><img src="/media/google.png" style="width:230px;"></a>
+	<a><img src="/media/fac.png" style="width:230px;"></a>
+	</div>
+</div>
+
+{% endblock %}
+
+</body>
